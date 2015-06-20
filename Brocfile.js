@@ -11,6 +11,7 @@ const indexHtml = funnel(src, {
 });
 
 const js = esTranspiler(src, {
+  exportModuleMetadata: true,
   stage: 0,
   moduleIds: true,
   modules: 'amd',
@@ -37,6 +38,10 @@ const js = esTranspiler(src, {
   }
 });
 
+const depGraphs = funnel(js, {
+  files: ['dep-graph.json']
+});
+
 const main = concat(js, {
   inputFiles: [
     '**/*.js'
@@ -44,4 +49,4 @@ const main = concat(js, {
   outputFile: '/' + pkg.name + '.js'
 });
 
-module.exports = mergeTrees([main, indexHtml]);
+module.exports = mergeTrees([main, indexHtml, depGraphs]);

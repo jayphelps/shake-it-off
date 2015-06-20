@@ -1,5 +1,1 @@
-export default class Example {
-  constructor() {
-    this.isExampleClass = true;
-  }
-}
+export * from './Example';
